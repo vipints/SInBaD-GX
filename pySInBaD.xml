@@ -1,0 +1,75 @@
+<tool id="sinbad" name="SInBaD" version="0.1">
+   <requirements>
+      <requirement type="package" version=""></requirement>
+   </requirements>
+   <description>Exploring functional variant discovery in non-coding regions
+   </description>
+   <command interpreter="python"> 
+    pySInBaD.py -i "$input" -o "$output" -s "$out_order" -l "$outlog" -t "$outname" -d "$dnarna"
+   </command>
+  <inputs>
+   <page>
+    <param format="fasta" name="input" type="data" label="Fasta File" />
+    <param name="outname" label="Name for output files to make it easy to remember what you did" type="text" size="50" value="SInBaD_run" />
+    <param name="dnarna" type="select" label="Data Type">
+      <option value="DNA" selected="True">DNA nucleotide sequences</option>
+      <option value="PROTEIN">Protein sequences</option>
+    </param>
+    <conditional name="outcontrol">
+      <param name="outform" type="select" label="Output format">
+        <option value="text" selected="True">Text output format</option>
+        <option value="gff">GFF format</option>
+        <option value="vcf">VCF format</option>
+      </param>
+      <when value="text" />
+      <when value="gff" />
+      <when value="vcf">
+      </when>
+    </conditional>
+   </page>
+  </inputs>
+  <outputs>
+    <data format="clustal" name="output"  label="${outname}_output.${outcontrol.outform}">
+       <change_format>
+           <when input="outcontrol.outform" value="fasta" format="fasta" />
+       </change_format>
+    </data>
+    <data format="txt" name="outlog"  label="${outname}_log.txt"/>
+  </outputs>
+  <tests>
+     <test>
+     </test>
+  </tests>
+  <help>
+
+**Note**
+
+Exploring functional variant discovery in non-coding regions with SInBaD
+ 
+For a tutorial introduction, 
+
+------
+
+**Licenses**
+
+If **SInBaD** is used to obtain results for scientific publications it
+should be cited as [1]_.
+
+.. [1] Kjong-Van Lehmann and Ting Chen. Exploring functional variant discovery in non-coding regions with `SInBaD`_. Nucl. Acids Res. (2012)
+
+.. _SInBaD: http://nar.oxfordjournals.org/content/early/2012/08/30/nar.gks800
+
+------
+
+**Attribution**
+
+The first iteration of this Galaxy wrapper was written by 
+
+This wrapper is released licensed under the LGPL_
+
+.. _LGPL: http://www.gnu.org/copyleft/lesser.html
+
+  </help>
+
+</tool>
+
