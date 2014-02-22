@@ -10,8 +10,6 @@ Requirements:
 
 import os
 import sys
-import pdb
-import gzip
 import operator
 import scipy as sp
 
@@ -19,7 +17,7 @@ FDRdefDIC =    {"c":0.5,"i":0.5,"p":0.5}
 FDR1DIC   =    {"c":0.85693359375,"i":0.8359375,"p":0.8790311865}
 FDR5DIC   =    {"c":0.732421875,"i":0.458984375,"p":0.784355163574}
 FDRallDIC =    {"c":0.0,"i":0.0,"p":0.0}
-dir_database = "/data/sinbad_db/dbase/allscoresorted"
+dir_database = "/data/sinbad_db/dbase/"
 
 def search(FH, data):
     """
@@ -180,4 +178,3 @@ def main():
 
 if __name__=="__main__":
     main()
-
