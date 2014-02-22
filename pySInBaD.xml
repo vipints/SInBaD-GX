@@ -5,41 +5,49 @@
    <description>Exploring functional variant discovery in non-coding regions
    </description>
    <command interpreter="python"> 
-    pySInBaD.py -i "$input" -o "$output" -s "$out_order" -l "$outlog" -t "$outname" -d "$dnarna"
+    pySInBaD.py $input $file_type_in $fdr > $output
    </command>
   <inputs>
    <page>
-    <param format="fasta" name="input" type="data" label="Fasta File" />
-    <param name="outname" label="Name for output files to make it easy to remember what you did" type="text" size="50" value="SInBaD_run" />
-    <param name="dnarna" type="select" label="Data Type">
-      <option value="DNA" selected="True">DNA nucleotide sequences</option>
-      <option value="PROTEIN">Protein sequences</option>
+
+    <param name="file_type_in" type="select" label="File Type" help="TODO: add support for more file formats!">
+      <option value="csv" selected="True">CSV format</option>
+      <option value="vcf">VCF format</option>
+      <option value="text">Text format</option>
     </param>
-    <conditional name="outcontrol">
-      <param name="outform" type="select" label="Output format">
-        <option value="text" selected="True">Text output format</option>
-        <option value="gff">GFF format</option>
-        <option value="vcf">VCF format</option>
-      </param>
-      <when value="text" />
-      <when value="gff" />
-      <when value="vcf">
-      </when>
-    </conditional>
+
+    <param format="csv,vcf" name="input" type="data" label="Query File" help="data in 1 - based coordinate system."/>
+
+    <param name="outname" label="Name for output files to make it easy to remember what you did" type="text" size="50" value="SInBaD_run" />
+
+    <param name="org_name" type="select" label="Organism" help="TODO: add more genomes!">
+      <option value="h_sapiens" selected="True">Homo sapiens (hg19)</option>
+    </param>
+
+    <param name="fdr" type="select" label="False Discovery Rate" help="Please see below for details.">
+      <option value="-1" selected="True">-1</option>
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="5">5</option>
+    </param>
+
+    <param name="outform" type="select" label="Output Format" help="TODO: add support for more result file formats!">
+        <option value="csv" selected="True">CSV output format</option>
+        <option value="text">Text format</option>
+    </param>
+
    </page>
   </inputs>
+
   <outputs>
-    <data format="clustal" name="output"  label="${outname}_output.${outcontrol.outform}">
-       <change_format>
-           <when input="outcontrol.outform" value="fasta" format="fasta" />
-       </change_format>
-    </data>
-    <data format="txt" name="outlog"  label="${outname}_log.txt"/>
+    <data format="csv" name="output"  label="${outname}_output.${outform}" />
   </outputs>
+
   <tests>
      <test>
      </test>
   </tests>
+
   <help>
 
 **Note**
