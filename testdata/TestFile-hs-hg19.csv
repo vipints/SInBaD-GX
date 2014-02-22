@@ -1,0 +1,5 @@
+#Chromosome , Position(hg19-ucsc) , Original Basepair , Mutation
+chr1,12190, C, A
+chr1,12191
+chr1,12192, A, T
+#chr3,361460, G, A
