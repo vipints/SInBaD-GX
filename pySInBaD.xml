@@ -5,44 +5,57 @@
    <description>Exploring functional variant discovery in non-coding regions
    </description>
    <command interpreter="python"> 
-    pySInBaD.py $input $file_type_in $fdr > $output
+    pySInBaD.py $input $infile.ftype $fdr > $output
    </command>
   <inputs>
    <page>
+        <conditional name="infile">
+                <param name="ftype" type="select" label="File Type" help="TODO: add support for more file formats!">
+                        <option value="csv" selected="True">CSV format</option>
+                        <option value="vcf">VCF format</option>
+                        <option value="txt">Text format</option>
+                </param>
+                <when value="csv">
+                        <param format="csv" name="input" type="data" label="Query File in CSV" help="data in 1 - based coordinate system."/>
+                </when>
+                <when value="vcf">
+                        <param format="vcf" name="input" type="data" label="Query File in VCF" help="data in 1 - based coordinate system."/>
+                </when>
+                <when value="txt">
+                        <param format="txt" name="input" type="data" label="Query File in TXT" help="data in 1 - based coordinate system."/>
+                </when>
+        </conditional>
 
-    <param name="file_type_in" type="select" label="File Type" help="TODO: add support for more file formats!">
-      <option value="csv" selected="True">CSV format</option>
-      <option value="vcf">VCF format</option>
-      <option value="text">Text format</option>
-    </param>
+        <param name="outname" label="Name for output file to make it easy to remember what you did" type="text" size="50" value="SInBaD_run" />
 
-    <param format="csv,vcf" name="input" type="data" label="Query File" help="data in 1 - based coordinate system."/>
+        <!-- future multiple genome db handler -->
+        <param name="org_name" type="select" label="Organism" help="TODO: add more genomes!">
+                <option value="h_sapiens" selected="True">Homo sapiens (hg19)</option>
+        </param>
 
-    <param name="outname" label="Name for output files to make it easy to remember what you did" type="text" size="50" value="SInBaD_run" />
+        <param name="fdr" type="select" label="False Discovery Rate" help="Please see below for details.">
+                <option value="-1" selected="True">-1</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="5">5</option>
+        </param>
 
-    <param name="org_name" type="select" label="Organism" help="TODO: add more genomes!">
-      <option value="h_sapiens" selected="True">Homo sapiens (hg19)</option>
-    </param>
-
-    <param name="fdr" type="select" label="False Discovery Rate" help="Please see below for details.">
-      <option value="-1" selected="True">-1</option>
-      <option value="0">0</option>
-      <option value="1">1</option>
-      <option value="5">5</option>
-    </param>
-
-    <param name="outform" type="select" label="Output Format" help="TODO: add support for more result file formats!">
-        <option value="csv" selected="True">CSV output format</option>
-        <option value="text">Text format</option>
-    </param>
+        <param name="outform" type="select" label="Output Format" help="TODO: add support for more result file formats!">
+                <option value="csv" selected="True">CSV output format</option>
+                <option value="txt">Text output format</option>
+        </param>
 
    </page>
   </inputs>
 
   <outputs>
-    <data format="csv" name="output"  label="${outname}_output.${outform}" />
+   <data format="csv" name="output"  label="${outname}_output.${outform}" >
+        <change_format>
+                <when input="outform" value="txt" format="txt" />
+        </change_format>
+    </data>
   </outputs>
-
+<!-- TODO add functional test for the tool --> 
   <tests>
      <test>
      </test>
@@ -55,6 +68,20 @@
 Exploring functional variant discovery in non-coding regions with SInBaD
  
 For a tutorial introduction, 
+
+**False Discovery Rate**
+
++-------------+------------+------------+-----------+
+|FDR threshold|C??         |I??         |P??        |
++=============+============+============+===========+
+|-1           |0           |0           |0          |
++-------------+------------+------------+-----------+
+|0            |0.5         |0.5         |0.5        |
++-------------+------------+------------+-----------+
+|1            |0.8569335937|0.8359375   |0.879031186|
++-------------+------------+------------+-----------+
+|5            |0.732421875 |0.458984375 |0.784355163|
++-------------+------------+------------+-----------+
 
 ------
 
