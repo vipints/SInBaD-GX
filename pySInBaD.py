@@ -6,6 +6,7 @@ CLI Usage:
 python pySInBaD.py testdata/TestFile-hs-hg19.csv csv -1 > out_file 
 
 Requirements: 
+    Scipy: http://scipy.org/
 """
 
 import os
