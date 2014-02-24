@@ -65,22 +65,45 @@
 
 **Note**
 
-Exploring functional variant discovery in non-coding regions with SInBaD
+Exploring functional variant discovery in non-coding regions with SInBaD (Sequence-Information-Based-Decision-model).
  
-For a tutorial introduction, 
+**What it does**
+
+Based on the nucleotide conservation information `SInBaD`_ evaluate any annotated human nucleotide variant in all known exons, introns, splice junctions and promoter regions. 
+
+.. _SInBaD: http://nar.oxfordjournals.org/content/early/2012/08/30/nar.gks800
+
+**Example**
+
+- The following genomic location, reference and alternate allele data of human in CSV format::
+
+        #Chromosome, Position(hg19-ucsc), Original Basepair, Mutation
+        chr1,12190,C,A
+        chr1,12191
+        chr1,12192,A,T
+
+
+- will give result in CSV format as follows::
+
+        #Chromosome, Position(hg19-ucsc), Original Basepair, Mutation, Score, Region
+        chr1,12190,C,A,0.0878524532997843,c
+        chr1,12191,A,A,0.10677613930990437,c
+        chr1,12191,T,G,0.23030976815074622,c
+        chr1,12192,A,T,0.10677613930990437,c
+
 
 **False Discovery Rate**
 
 +-------------+------------+------------+-----------+
-|FDR threshold|C??         |I??         |P??        |
+|FDR threshold|Coding      |Intron      |Promoter   |
 +=============+============+============+===========+
-|-1           |0           |0           |0          |
+|Default      |0           |0           |0          |
 +-------------+------------+------------+-----------+
-|0            |0.5         |0.5         |0.5        |
+|Default      |0.5         |0.5         |0.5        |
 +-------------+------------+------------+-----------+
-|1            |0.8569335937|0.8359375   |0.879031186|
+|1% FPR       |0.8569335937|0.8359375   |0.879031186|
 +-------------+------------+------------+-----------+
-|5            |0.732421875 |0.458984375 |0.784355163|
+|5% FPR       |0.732421875 |0.458984375 |0.784355163|
 +-------------+------------+------------+-----------+
 
 ------
@@ -90,15 +113,15 @@ For a tutorial introduction,
 If **SInBaD** is used to obtain results for scientific publications it
 should be cited as [1]_.
 
-.. [1] Kjong-Van Lehmann and Ting Chen. Exploring functional variant discovery in non-coding regions with `SInBaD`_. Nucl. Acids Res. (2012)
+.. [1] Kjong-Van Lehmann and Ting Chen. `Exploring functional variant discovery in non-coding regions with SInBaD`_. Nucl. Acids Res. (2012)
 
-.. _SInBaD: http://nar.oxfordjournals.org/content/early/2012/08/30/nar.gks800
+.. _Exploring functional variant discovery in non-coding regions with SInBaD: http://nar.oxfordjournals.org/content/early/2012/08/30/nar.gks800
 
 ------
 
 **Attribution**
 
-The first iteration of this Galaxy wrapper was written by 
+The first iteration of this Galaxy wrapper was written by vipin at cbio.mskcc.org  
 
 This wrapper is released licensed under the LGPL_
 
