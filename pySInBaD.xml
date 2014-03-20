@@ -73,6 +73,8 @@ Based on the nucleotide conservation information `SInBaD`_ evaluate any annotate
 
 .. _SInBaD: http://nar.oxfordjournals.org/content/early/2012/08/30/nar.gks800
 
+------
+
 **Example**
 
 - The following genomic location, reference and alternate allele data of human in CSV format::
@@ -91,6 +93,7 @@ Based on the nucleotide conservation information `SInBaD`_ evaluate any annotate
         chr1,12191,T,G,0.23030976815074622,c
         chr1,12192,A,T,0.10677613930990437,c
 
+------
 
 **False Discovery Rate**
 
